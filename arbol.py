@@ -23,9 +23,7 @@ class nodoArbol(object):
             aux = raiz
             raiz= raiz.izq
         else:
-            raiz.der = raiz.remplazar(raiz.der)
-            aux = raiz.der
-            raiz = aux
+            aux.raiz.der = raiz.remplazar(raiz.der)
         return raiz , aux
     
     
@@ -35,9 +33,9 @@ class nodoArbol(object):
         x = None
         if(raiz is not None):
             if(clave < raiz.info):
-                x.raiz.izq = raiz.eliminar_nodo(raiz.izq, dato)
+                x.raiz.izq = raiz.eliminar_nodo(raiz.izq, clave)
             elif(clave > raiz.info):
-                x.raiz.der = raiz.eliminar_nodo(raiz.der , dato)
+                x.raiz.der = raiz.eliminar_nodo(raiz.der , clave)
             else:
                 x = raiz.info
                 if(raiz.izq is None):
@@ -45,8 +43,10 @@ class nodoArbol(object):
                 elif(raiz.der is None):
                     raiz =raiz.izq
                 else:
-                    raiz
-    
+                    
+                    x.raiz.izq = raiz.remplazar(raiz.izq)
+                    raiz.info =x.info
+            return raiz ,x 
 
     def buscar(raiz,clave):
         """Devuleve la direccion del elemento buscado"""
