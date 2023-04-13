@@ -1,17 +1,18 @@
 class nodoArbol(object):
-    def __init__(self,info,izq= None,der=None):
+    def __init__(self,info):
         self.info = info
-        self.izq =izq
-        self.der =der
+        self.izq = None
+        self.der = None
 
     def insertar_nodo(raiz, dato):
         """Insertar un dato añ árbol"""
-        if (raiz is None):
+        if raiz is None:
             raiz = nodoArbol(dato)
         elif(dato < raiz.info):
-            raiz.izq = raiz.insertar_nodo( raiz.izq ,dato)
+            raiz.izq = raiz.insertar_nodo( raiz.izq , dato)
         else:
-            raiz.der = raiz.insertar_nodo(raiz.der,dato)
+            raiz.der = raiz.insertar_nodo(raiz.der, dato)
+        return raiz
 
     def arbolvacio(raiz):
         """Devuleve true si el árbol esta vacio"""
@@ -26,27 +27,24 @@ class nodoArbol(object):
             aux.raiz.der = raiz.remplazar(raiz.der)
         return raiz , aux
     
-    
-
     def eliminar_nodo(raiz,clave):
         """Elimina un elemento del árbol y lo devuelve si lo encuentra"""
-        x = None
+        aux = None
         if(raiz is not None):
             if(clave < raiz.info):
-                x.raiz.izq = raiz.eliminar_nodo(raiz.izq, clave)
+                aux.raiz.izq = raiz.eliminar_nodo(raiz.izq, clave)
             elif(clave > raiz.info):
-                x.raiz.der = raiz.eliminar_nodo(raiz.der , clave)
+                aux.raiz.der = raiz.eliminar_nodo(raiz.der , clave)
             else:
-                x = raiz.info
+                aux = raiz.info
                 if(raiz.izq is None):
                     raiz = raiz.der
                 elif(raiz.der is None):
                     raiz =raiz.izq
                 else:
-                    
-                    x.raiz.izq = raiz.remplazar(raiz.izq)
-                    raiz.info =x.info
-            return raiz ,x 
+                    aux.raiz.izq = raiz.remplazar(raiz.izq)
+                    raiz =aux.info
+            return raiz,aux
 
     def buscar(raiz,clave):
         """Devuleve la direccion del elemento buscado"""
@@ -80,9 +78,3 @@ class nodoArbol(object):
             raiz.preorden(raiz.der)
             print(raiz.info)
             raiz.preorden(raiz.izq)
-
-lista = [342,[424,43,53],525,23424,52342,234,456,674,54,656,46]
-
-nume= nodoArbol(lista)
-nume.postorden
-nume.preorden
