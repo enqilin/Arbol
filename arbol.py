@@ -3,15 +3,15 @@ class nodoArbol(object):
         self.info = info
         self.izq = None
         self.der = None
-
+class ArbolBinario(object):
     def insertar_nodo(raiz, dato):
         """Insertar un dato añ árbol"""
         if raiz is None:
             raiz = nodoArbol(dato)
         elif(dato < raiz.info):
-            raiz.izq = raiz.insertar_nodo( raiz.izq , dato)
+            raiz.izq = ArbolBinario.insertar_nodo( raiz.izq , dato)
         else:
-            raiz.der = raiz.insertar_nodo(raiz.der, dato)
+            raiz.der = ArbolBinario.insertar_nodo(raiz.der, dato)
         return raiz
 
     def arbolvacio(raiz):
@@ -24,7 +24,7 @@ class nodoArbol(object):
             aux = raiz
             raiz= raiz.izq
         else:
-            aux.raiz.der = raiz.remplazar(raiz.der)
+            raiz.der,aux = ArbolBinario.remplazar(raiz.der)
         return raiz , aux
     
     def eliminar_nodo(raiz,clave):
@@ -32,9 +32,9 @@ class nodoArbol(object):
         aux = None
         if(raiz is not None):
             if(clave < raiz.info):
-                aux.raiz.izq = raiz.eliminar_nodo(raiz.izq, clave)
+                raiz.izq, aux= ArbolBinario.eliminar_nodo(raiz.izq, clave)
             elif(clave > raiz.info):
-                aux.raiz.der = raiz.eliminar_nodo(raiz.der , clave)
+                raiz.der,aux = ArbolBinario.eliminar_nodo(raiz.der , clave)
             else:
                 aux = raiz.info
                 if(raiz.izq is None):
@@ -42,8 +42,8 @@ class nodoArbol(object):
                 elif(raiz.der is None):
                     raiz =raiz.izq
                 else:
-                    aux.raiz.izq = raiz.remplazar(raiz.izq)
-                    raiz =aux.info
+                    raiz.izq, aux= ArbolBinario.remplazar(raiz.izq)
+                    raiz.info=aux.info
             return raiz,aux
 
     def buscar(raiz,clave):
@@ -53,9 +53,9 @@ class nodoArbol(object):
             if(raiz.info ==clave):
                 pos = raiz
             elif clave < raiz.info:
-                pos = raiz.buscar(raiz.izq , clave)
+                pos = ArbolBinario.buscar(raiz.izq , clave)
             else:
-                pos = raiz.buscar(raiz.der , clave)
+                pos = ArbolBinario.buscar(raiz.der , clave)
         return pos
 
     def inorden(raiz):
