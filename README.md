@@ -119,3 +119,42 @@ def eliminar_nodo(raiz, clave):
             print(raiz.info)
             ArbolBinario.postorden(raiz.izq)
 ```
+9.	por_nivel(raíz). Realiza un recorrido del árbol por nivel mostrando la información de los ele- mentos almacenados.
+
+```bash
+    def por_nivel(raiz):
+        pendientes = Cola()
+        Cola.arribo(pendientes,raiz)
+        while not Cola.cola_vacia(pendientes):
+            nodo = Cola.atencion(pendientes)
+            print(nodo.info)
+            if nodo.izq is not None:
+                Cola.arribo(pendientes,nodo.izq)
+            if nodo.der is not None:
+                Cola.arribo(pendientes,nodo.der)
+
+class nodoCola(object):
+    def __init__(self):
+        self.info , self.sig = None ,None
+
+class Cola(object):
+    def __init__(self):
+        self.frente , self.final = None , None
+
+    def arribo(cola, dato):
+        nodo = nodoCola()
+        nodo.info = dato
+        if cola.frente is None:
+            cola.frente = nodo
+        else:
+            cola.final.sig = nodo
+        cola.final = nodo
+    def atencion(cola):
+        dato = cola.frente.info
+        cola.frente = cola.final.sig
+        if cola.frente is None:
+            cola.final = None
+        return dato
+    def cola_vacia(cola):
+        return cola.frente is None
+```
