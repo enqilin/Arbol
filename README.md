@@ -17,7 +17,7 @@ class NodoArbol(object):
 ```
 Crea la clase de Arbol Binarios
 ```bash
-class ArbolBinarios(obejct):
+class ArbolBinario(obejct):
 ```
 1.	insertar_nodo(raíz, elemento). Agrega el elemento al árbol;
 
